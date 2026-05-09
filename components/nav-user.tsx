@@ -10,7 +10,6 @@ import {
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
@@ -20,14 +19,17 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar"
-import { useSupabaseUser } from "@/hooks/useSupabaseUser"
 import { createClient } from "@/lib/supabase/client"
-import { EllipsisVerticalIcon, CircleUserRoundIcon, CreditCardIcon, BellIcon, LogOutIcon } from "lucide-react"
+import { EllipsisVerticalIcon, CircleUserRoundIcon, BellIcon, LogOutIcon } from "lucide-react"
 import { useRouter } from "next/navigation"
+import type { User } from "@supabase/supabase-js"
 
-export function NavUser() {
+type Props = {
+  user: User
+}
+
+export function NavUser({ user  }: Props) {
   const { isMobile } = useSidebar()
-  const { user, loading } = useSupabaseUser()
 
   const router = useRouter()
 

@@ -2,17 +2,11 @@
 
 import * as React from "react"
 import {
-  IconBook,
   IconChartBar,
-  IconChartLine,
-  IconDashboard,
   IconFolder,
   IconInnerShadowTop,
   IconLayoutDashboard,
-  IconListDetails,
-  IconSchool,
   IconSearch,
-  IconUsers,
 } from "@tabler/icons-react"
 import { NavMain } from "@/components/nav-main"
 import { NavUser } from "@/components/nav-user"
@@ -26,14 +20,15 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
 import Link from "next/link"
+import { useSupabaseUser } from "@/hooks/useSupabaseUser"
 
 
 const data = {
-  user: {
+  /* user: {
     name: "shadcn",
     email: "m@example.com",
     avatar: "",
-  },
+  }, */
   navMain: [
     {
       title: "Dashboard",
@@ -120,6 +115,7 @@ const data = {
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { user, loading } = useSupabaseUser()
   return (
     <Sidebar collapsible="offcanvas" {...props}>
       <SidebarHeader>
@@ -130,7 +126,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               className="data-[slot=sidebar-menu-button]:p-1.5!"
             >
               <Link href="/">
-                <IconInnerShadowTop className="!size-5" />
+                <IconInnerShadowTop className="size-5!" />
                 <span className="text-base font-semibold">Acme Inc.</span>
               </Link>
             </SidebarMenuButton>
@@ -141,7 +137,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavMain items={data.navMain} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        {loading ? (
+          <div className="p-2 text-sm text-muted-foreground">
+            Loading...
+          </div>
+        ) : (
+          user && <NavUser user={user} />
+        )}
       </SidebarFooter>
     </Sidebar>
   )

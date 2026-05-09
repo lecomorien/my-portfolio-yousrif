@@ -9,11 +9,11 @@ const ResponsiveNav = () => {
 
   const openNavHandler=()=>setShownav(true);
   const closeNavHandler=()=>setShownav(false);
-  /* const pathname = usePathname();
+  const pathname = usePathname();
   // ❌ Ne pas afficher le header sur /dashboard
   if (pathname.startsWith('/dashboard')) {
     return null
-  } */
+  }
   return (
     <div>
       <Nav openNav={openNavHandler}/>
