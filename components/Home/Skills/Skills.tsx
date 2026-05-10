@@ -98,7 +98,7 @@ const Skills = () => {
                                 data-aos-duration="600"
                                 data-aos-once="true"
                                 data-aos-anchor-placement="top-bottom"
-                                className="group relative p-[1px] rounded-xl bg-gradient-to-br from-purple-600/30 to-transparent hover:from-purple-600/60 transition-all duration-300"
+                                className="group relative p-[1px] rounded-xl bg-linear-to-br from-purple-600/30 to-transparent hover:from-purple-600/60 transition-all duration-300"
                             >
                                 <div className="bg-card dark:bg-gray-900 rounded-xl p-5 h-full">
 
