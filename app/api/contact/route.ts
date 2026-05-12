@@ -1,6 +1,5 @@
 export const runtime = "nodejs";
 
-
 import { Resend } from "resend";
 import { createClient } from "@supabase/supabase-js";
 
@@ -13,65 +12,42 @@ const supabase = createClient(
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
+    const { name, email, subject, message } = await req.json();
 
-    const { name, email, subject, message } = body;
-
-    // Validation simple
     if (!name || !email || !subject || !message) {
       return Response.json(
-        { error: "Champs requis manquants" },
+        { error: "Champs manquants" },
         { status: 400 }
       );
     }
 
-    // 1. Sauvegarde DB
-    const { error: dbError } = await supabase
-      .from("messages")
-      .insert({
-        name,
-        email,
-        subject,
-        message,
-        is_read: false,
-      });
+    // 1. save DB
+    const { error } = await supabase.from("messages").insert({
+      name,
+      email,
+      subject,
+      message,
+      is_read: false,
+    });
 
-    if (dbError) {
-      console.error(dbError);
-
-      return Response.json(
-        { error: "Erreur base de données" },
-        { status: 500 }
-      );
+    if (error) {
+      return Response.json({ error: error.message }, { status: 500 });
     }
 
-    // 2. Email
+    // 2. send email
     await resend.emails.send({
       from: "Portfolio <onboarding@resend.dev>",
       to: "abdouyousrif@gmail.com",
       subject: `Nouveau message: ${subject}`,
       html: `
-        <h2>Nouveau message portfolio</h2>
-
-        <p><strong>Nom:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Objet:</strong> ${subject}</p>
-
-        <hr/>
-
-        <p>${message}</p>
+        <p><b>Nom:</b> ${name}</p>
+        <p><b>Email:</b> ${email}</p>
+        <p><b>Message:</b> ${message}</p>
       `,
     });
 
-    return Response.json({
-      success: true,
-    });
-  } catch (error) {
-    console.error(error);
-
-    return Response.json(
-      { error: "Erreur serveur" },
-      { status: 500 }
-    );
+    return Response.json({ success: true });
+  } catch (e) {
+    return Response.json({ error: "Server error" }, { status: 500 });
   }
 }
