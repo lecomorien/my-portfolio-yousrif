@@ -23,7 +23,6 @@ export default function MessageForm({ message, onClose, onSuccess }: Props) {
     email: message?.email || "",
     subject: message?.subject || "",
     message: message?.message || "",
-    is_read: message?.is_read || false,
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -32,8 +31,8 @@ export default function MessageForm({ message, onClose, onSuccess }: Props) {
   const validate = () => {
     const newErrors: Record<string, string> = {};
     if (!formData.name.trim()) newErrors.name = "Le nom et prénom sont requis";
-    if (!formData.email.trim()) newErrors.description = "L'email est requis";
-    if (!formData.subject.trim()) newErrors.title = "L'objet est requis";
+    if (!formData.email.trim()) newErrors.email = "L'email est requis";
+    if (!formData.subject.trim()) newErrors.subject  = "L'objet est requis";
     if (!formData.message.trim()) newErrors.message = "Le message est requis";
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -50,7 +49,20 @@ export default function MessageForm({ message, onClose, onSuccess }: Props) {
       if (isEdit && message?.id) {
         await MessagesQuery.update(message.id, formData);
       } else {
-        await MessagesQuery.create(formData);
+        //await MessagesQuery.create(formData);
+        const response = await fetch("/api/contact", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.error);
+        }
       }
 
 
@@ -100,8 +112,9 @@ export default function MessageForm({ message, onClose, onSuccess }: Props) {
         {/* email */}
         <div className="min-w-0">
           <Label className="text-xs font-medium">Email *</Label>
-          <Textarea
-            className="w-full mt-1 px-3 py-2 text-sm rounded-lg h-24 resize-none"
+          <Input
+            type="email"
+            className="w-full mt-1 px-3 py-2 text-sm rounded-lg"
             value={formData.email}
             onChange={(e) =>
               setFormData({ ...formData, email: e.target.value })
@@ -130,9 +143,8 @@ export default function MessageForm({ message, onClose, onSuccess }: Props) {
           </div>
           <div className="min-w-0">
             <Label className="text-xs font-medium">Message</Label>
-            <Input
-              type="text"
-              className="w-full mt-1 px-3 py-2 text-sm rounded-lg"
+            <Textarea
+              className="w-full mt-1 px-3 py-2 text-sm rounded-lg h-32 resize-none"
               value={formData.message}
               onChange={(e) =>
                 setFormData({ ...formData, message: e.target.value })
@@ -142,14 +154,6 @@ export default function MessageForm({ message, onClose, onSuccess }: Props) {
               <p className="text-red-500 text-xs">{errors.message}</p>
             )}
           </div>
-
-          <SwitchField
-            label="Lu"
-            checked={formData.is_read}
-            onChange={(value) =>
-              setFormData({ ...formData, is_read: value })
-            }
-          />
         </div>
 
       </div>
