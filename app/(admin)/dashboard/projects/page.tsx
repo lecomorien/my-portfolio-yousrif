@@ -26,7 +26,7 @@ export default function ProjectsPage(){
 
     const fetchProjects = async() => {
         try{
-            const data = await ProjectsQuery.getAll();
+            const data = await ProjectsQuery.getAllAdmin();
             setProjects(data);
         }catch(e){
             console.error("Erreur lors du chargement des projets : ", e);

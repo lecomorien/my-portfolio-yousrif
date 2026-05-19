@@ -25,8 +25,35 @@ export class ProjectsQuery {
           )
         )
       `)
-      .order("position", { ascending: true, nullsFirst: false })
-      /* .order("created_at", { ascending: false }) */;
+      .eq("is_featured", true)
+      .order("position", { ascending: true, nullsFirst: false });
+    if (error) {
+        console.error("Supabase error:", JSON.stringify(error, null, 2));
+        throw error;
+    }
+    // SOLUTION : Forcer un plain object propre
+    return data || [];
+  }
+  static async getAllAdmin(): Promise<Project[]> {
+    const { data, error } = await supabase
+      .from("projects")
+      .select(`
+        *,
+        categories(
+          id,
+          title
+        ),
+        project_images (*),
+        project_technologies (
+          id,
+          technology_id,
+          technologies!project_technologies_technology_id_fkey (
+            id,
+            name
+          )
+        )
+      `)
+      .order("position", { ascending: true, nullsFirst: false });
     if (error) {
         console.error("Supabase error:", JSON.stringify(error, null, 2));
         throw error;

@@ -23,6 +23,7 @@ export default function ProjectTable({projects, onEdit, onDelete} : Props) {
               <th className="px-4 py-2">Catégorie</th>
               <th className="px-4 py-2">Github</th>
               <th className="px-4 py-2">Position</th>
+              <th className="px-4 py-2">Featured</th>
               <th className="px-4 py-2">Actions</th>
             </tr>
           </thead>
@@ -41,6 +42,13 @@ export default function ProjectTable({projects, onEdit, onDelete} : Props) {
                   )}
                 </td>
                 <td className="px-4 py-2">{p.position}</td>
+                <td className="px-4 py-2">
+                  <div
+                    className={`w-3 h-3 rounded-full ${
+                      p.is_featured ? "bg-green-500" : "bg-gray-300"
+                    }`}
+                  />
+                </td>
                 <td className="px-4 py-2 text-right space-x-2">
                   <Button variant="ghost" size="sm" onClick={() => onEdit(p)}>
                     <IconPencil className="h-4 w-4" />

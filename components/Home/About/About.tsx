@@ -59,14 +59,13 @@ const About = () => {
                     data-aos="fade-right"
                     data-aos-delay="0"
                     data-aos-anchor-placement="top-center" 
-                    className="relative"
+                    className="relative w-125 h-150"
                 >
                     <div className="aspect-square rounded-2xl overflow-hidden p-2">
                         <Image
-                            src={profile?.avatar_url || "/images/profil.jpg"}
+                            src={profile?.avatar_url || "/images/profil.png"}
                             alt='profile'
-                            width={700}
-                            height={700}
+                            fill
                             className='w-full h-full object-center rounded-xl'
                         />
                     </div>

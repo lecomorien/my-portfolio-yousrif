@@ -39,6 +39,7 @@ export default function ProjectForm({ project, onClose, onSuccess }: Props) {
     project_url: project?.project_url || "",
     github_url: project?.github_url || "",
     position: project?.position || 0,
+    is_featured: project?.is_featured ?? true,
   });
 
   const [existingImages, setExistingImages] = useState<ProjectImage[]>(
@@ -84,19 +85,6 @@ export default function ProjectForm({ project, onClose, onSuccess }: Props) {
     }
   }, [project]);
 
-  /* useEffect(() => {
-    if (!project) return;
-
-    const mapped =
-      project.project_technologies
-        ?.filter((pt) => pt.technologies)
-        .map((pt) => ({
-          value: pt.technologies!.id,
-          label: pt.technologies!.name,
-        })) || [];
-
-    setTechs(mapped);
-  }, [project]); */
   useEffect(() => {
     console.log("PROJECT EDIT:", project);
     console.log("TECHS RAW:", project?.project_technologies);
@@ -328,6 +316,24 @@ export default function ProjectForm({ project, onClose, onSuccess }: Props) {
               setFormData({ ...formData, position: Number(e.target.value) })
             }
           />
+        </div>
+        <div className="flex items-center space-x-2">
+          <input
+            type="checkbox"
+            id="is_featured"
+            checked={formData.is_featured}
+            onChange={(e) =>
+              setFormData({
+                ...formData, 
+                is_featured: e.target.checked,
+              })
+            }
+            className="h-4 w-4"
+          />
+
+          <Label htmlFor="is_featured" className="text-xs font-medium">
+            Projet mis en avant
+          </Label>
         </div>
 
         {/* Images */}
