@@ -14,7 +14,6 @@ import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import Image from "next/image";
 import TechMultiSelect from "@/components/techMulti-select";
-import { MultiValue } from "react-select";
 
 interface Props {
   project?: Project | null;
