@@ -10,8 +10,7 @@ export class SkillsQuery {
       const { data, error } = await supabase
         .from("skills")
         .select('*, skill_categories(title)')
-        .order("position", { ascending: true, nullsFirst: false })
-        /* .order("created_at", { ascending: false }) */;
+        .order("position", { ascending: true, nullsFirst: false });
       if (error) {
           console.error("Supabase error:", error);
           throw error;
