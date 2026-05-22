@@ -1,4 +1,4 @@
-export const runtime = "nodejs";
+/* export const runtime = "nodejs";
 
 import { Resend } from "resend";
 import { createClient } from "@supabase/supabase-js";
@@ -50,4 +50,4 @@ export async function POST(req: Request) {
   } catch (e) {
     return Response.json({ error: "Server error" }, { status: 500 });
   }
-}
+} */
