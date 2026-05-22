@@ -2,7 +2,7 @@
 import { createClient } from "@/lib/supabase/client";
 import { ProfileTitle, ProfileTitleInput} from "@/lib/types/profile_titles";
 
-const supabase = createClient();   // ← Client côté navigateur
+const supabase = createClient(); 
 
 export class ProfileTitlesQuery {
 

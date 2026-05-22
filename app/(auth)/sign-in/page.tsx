@@ -173,20 +173,6 @@ export default function SignIn() {
                 Mot de passe oublié ?
               </span>
             </Link>
-
-            {/* <p className="mt-4 text-gray-600">
-              Pas encore de compte ?{" "}
-              <Link
-                href="/sign-up"
-                className="font-medium text-gray-600 hover:text-indigo-500"
-              >
-                <span className="relative z-20 flex items-center text-sm">
-                  <svg className="relative w-5 h-5 mr-2 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                  Créer un compte
-                </span>
-                
-              </Link>
-            </p> */}
           </div>
         </div>
       </div>

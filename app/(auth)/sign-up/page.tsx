@@ -35,11 +35,6 @@ export default function SignUp() {
       setLoading(false);
       return;
     }
-
-    // Option : rediriger vers une page de confirmation email
-    // Ou directement vers dashboard si email auto-confirm activé
-    /* router.push("/dashboard?message=Vérifie ton email pour confirmer ton compte"); */
-    //router.push("/dashboard");
     router.refresh();
   };
 

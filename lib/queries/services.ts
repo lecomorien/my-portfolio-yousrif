@@ -17,7 +17,6 @@ export class ServicesQuery {
           console.error("Supabase error:", error);
           throw error;
       }
-      // SOLUTION : Forcer un plain object propre
       return data || [];
     }
   

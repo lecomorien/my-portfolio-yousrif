@@ -40,13 +40,6 @@ export default async function RootLayout({
           "antialiased"
         )}
       >
-        {/* <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-          enableColorScheme
-        > */}
         <ThemeProvider>
           <ActiveThemeProvider initialTheme={activeThemeValue}>
             {children}

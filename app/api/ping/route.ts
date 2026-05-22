@@ -15,16 +15,3 @@ export async function GET() {
 
   return Response.json({ ok: true });
 }
-
-/* ÉTAPE 3 — Ajouter vercel.json
-
-📁 à la racine du projet :
-
-{
-  "cron": [
-    {
-      "path": "/api/ping",
-      "schedule": "10 " // *****
-    }
-  ]
-} */
